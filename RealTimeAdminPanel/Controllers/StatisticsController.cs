@@ -32,9 +32,6 @@ namespace RealTimeAdminPanel.Controllers
         public IActionResult UpdateStatistics([FromBody] StatisticsData newData)
         {
             _statisticsService.UpdateStatistics(newData);
-            
-            // Notify all clients via SignalR hub that data has changed
-            _hubContext.Clients.All.SendAsync("ReceiveStatistics", newData);
 
             return Ok(new { Message = "Statistics updated successfully!" });
         }
@@ -45,9 +42,6 @@ namespace RealTimeAdminPanel.Controllers
         {
             var newData = _statisticsService.GenerateRandomStatistics();
             _statisticsService.UpdateStatistics(newData);
-            
-            // Notify all clients via SignalR hub that data has changed
-            _hubContext.Clients.All.SendAsync("ReceiveStatistics", newData);
 
             return Ok(newData);
         }

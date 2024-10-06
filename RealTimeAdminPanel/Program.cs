@@ -27,5 +27,6 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 app.MapHub<StatisticsHub>("/hubs/statistics");
+//HandShake {"protocol":"json","version":1}
 
 app.Run();

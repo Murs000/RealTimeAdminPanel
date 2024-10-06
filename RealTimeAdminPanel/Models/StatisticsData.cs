@@ -1,4 +1,4 @@
-namespace RealTimeAdminPanel.Services
+namespace RealTimeAdminPanel.Models
 {
     public class StatisticsData
     {

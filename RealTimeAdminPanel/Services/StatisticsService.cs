@@ -1,34 +1,37 @@
-using System;
-using Bogus;
+using Microsoft.AspNetCore.SignalR;
+using RealTimeAdminPanel.Models;
+using RealTimeAdminPanel.Hubs;
 
 namespace RealTimeAdminPanel.Services
 {
     public class StatisticsService
     {
         private StatisticsData _currentStatistics;
+        private readonly IHubContext<StatisticsHub> _hubContext;
 
-        // Initialize with random mock data using Bogus
-        public StatisticsService()
+        public StatisticsService(IHubContext<StatisticsHub> hubContext)
         {
+            _hubContext = hubContext;
             _currentStatistics = GenerateRandomStatistics();
         }
 
-        // Method to get current statistics data
+        // Get current statistics
         public StatisticsData GetCurrentStatistics()
         {
             return _currentStatistics;
         }
 
-        // Method to update statistics data
+        // Update statistics data and notify all connected clients
         public void UpdateStatistics(StatisticsData newData)
         {
             _currentStatistics = newData;
+            _hubContext.Clients.All.SendAsync("ReceiveStatistics", _currentStatistics);
         }
 
-        // Method to generate random statistics data
+        // Generate random statistics
         public StatisticsData GenerateRandomStatistics()
         {
-            var faker = new Faker<StatisticsData>()
+            var faker = new Bogus.Faker<StatisticsData>()
                 .RuleFor(s => s.TotalUsers, f => f.Random.Int(1000, 5000))
                 .RuleFor(s => s.ActiveUsers, f => f.Random.Int(100, 1000))
                 .RuleFor(s => s.NewUsersToday, f => f.Random.Int(10, 100))

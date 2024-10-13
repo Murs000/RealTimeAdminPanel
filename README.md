@@ -24,7 +24,7 @@ The project uses the **Model-View-Controller (MVC)** architecture:
 ### Services
 - **Statistics Service**: Manages statistics without a database. It uses a private field (`_currentStatistics`) to store current statistics, which persist across sessions due to the **singleton** pattern.
   - **generateRandomStatistics()**: Generates fake statistics using **Bogus**.
-  - **updateStatistics()**: Updates the statistics when data is received from the user and sents via **SignalR** all connected users.
+  - **updateStatistics()**: Updates the statistics when data is received from the user and sends changes with **SignalR** all connected users.
   
 ### SignalR Hub
 - **StatisticsHub**: Handles real-time communication with clients.
@@ -44,7 +44,7 @@ The project uses the **Model-View-Controller (MVC)** architecture:
 
 ### Testing with Swagger & Postman
 - **Swagger** is used for endpoint testing but does not support WebSocket connections.
-- **Postman** is used for WebSocket testing. To establish a handshake, a specific ASCII character sequence (`0x1e`) is used. This sequence is sent as binary data in **Base64** format.
+- **Postman** is used for WebSocket testing. To establish a handshake, a specific ASCII character sequence (`0x1e`) is used. This sequence is sent as binary data in **Base64** format (eyJwcm90b2NvbCI6Impzb24iLCAidmVyc2lvbiI6MX0e).
 
 ## Running the Project
 1. Clone the repository
@@ -59,7 +59,7 @@ The project uses the **Model-View-Controller (MVC)** architecture:
 
 ## Technologies Used
 - **C#**
-- **ASP.NET WebApi**
+- **ASP.NET WebApi** (with MVC structure)
 - **SignalR**
 - **Bogus** (for mocking data)
 - **Swagger** (for API testing)

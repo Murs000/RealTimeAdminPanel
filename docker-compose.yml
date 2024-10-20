@@ -4,6 +4,7 @@ version: '3.4'
 
 services:
   realtimeadminpanel:
+    container_name: realtimeadminpanel-web
     image: realtimeadminpanel
     build:
       context: .

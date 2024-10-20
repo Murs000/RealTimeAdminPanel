@@ -11,12 +11,10 @@ namespace RealTimeAdminPanel.Controllers
     public class StatisticsController : ControllerBase
     {
         private readonly StatisticsService _statisticsService;
-        private readonly IHubContext<StatisticsHub> _hubContext;
 
-        public StatisticsController(StatisticsService statisticsService, IHubContext<StatisticsHub> hubContext)
+        public StatisticsController(StatisticsService statisticsService)
         {
             _statisticsService = statisticsService;
-            _hubContext = hubContext;
         }
 
         // Get the current statistics

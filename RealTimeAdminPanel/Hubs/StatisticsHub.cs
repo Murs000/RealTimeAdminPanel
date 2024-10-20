@@ -23,12 +23,5 @@ namespace RealTimeAdminPanel.Hubs
             
             await base.OnConnectedAsync();
         }
-
-        // Method to push real-time statistics data to all clients
-        public async Task SendStatisticsData()
-        {
-            var currentData = _statisticsService.GetCurrentStatistics();
-            await Clients.All.SendAsync("ReceiveStatistics", currentData);
-        }
     }
 }

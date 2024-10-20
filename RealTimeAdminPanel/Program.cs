@@ -24,7 +24,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+app.UseStaticFiles();
+
 app.MapControllers();
 app.MapHub<StatisticsHub>("/hubs/statistics");
 //HandShake {"protocol":"json","version":1}

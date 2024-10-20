@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Admin Panel</title>
+    <link rel="stylesheet" href="/lib/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="/lib/chartjs/chart.min.js"></script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Admin Panel Overview</h1>
+
+        <!-- Left Part: User Statistics (Circle Chart) -->
+        <div class="row mt-4">
+            <div class="col-md-6 text-center">
+                <h5>User Distribution</h5>
+                <canvas id="userChart" class="chart-canvas"></canvas>
+            </div>
+
+            <!-- Right Part: Total Sales and Errors -->
+            <div class="col-md-6">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h4>Total Sales</h4>
+                        <h3 id="totalSales" class="display-5 text-warning">$0.00</h3>
+                    </div>
+                </div>
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h4>Errors Reported</h4>
+                        <h3 id="errorsReported" class="display-5 text-danger">0</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="/lib/bootstrap/bootstrap.bundle.min.js"></script>
+    <!-- SignalR JS -->
+    <script src="/lib/signalr/signalr.min.js"></script>
+    <!-- Custom JS -->
+    <script src="/js/signalr.js"></script>
+    <script src="/js/chart-scripts.js"></script>
+</body>
+</html>

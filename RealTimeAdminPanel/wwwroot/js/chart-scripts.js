@@ -7,9 +7,9 @@ let userChart = new Chart(userCtx, {
         labels: ['Total Users', 'Active Users', 'New Users Today'],
         datasets: [{
             data: [0, 0, 0],  // Data will be dynamically updated
-            backgroundColor: ['#007bff', '#28a745', '#17a2b8'],
+            backgroundColor: ['#1e88e5', '#43a047', '#00acc1'],
             borderColor: '#fff',
-            borderWidth: 1
+            borderWidth: 2
         }]
     },
     options: {
@@ -17,7 +17,13 @@ let userChart = new Chart(userCtx, {
         maintainAspectRatio: false,
         plugins: {
             legend: {
-                position: 'bottom'
+                position: 'bottom',
+                labels: {
+                    color: '#424242',
+                    font: {
+                        size: 14
+                    }
+                }
             }
         }
     }

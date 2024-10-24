@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using Microsoft.OpenApi.Models;
 using Quartz;
 using RealTimeAdminPanel.Hubs;
@@ -51,3 +52,5 @@ app.MapHub<StatisticsHub>("/hubs/statistics");
 //HandShake {"protocol":"json","version":1}
 
 app.Run();
+
+public partial class Program { }

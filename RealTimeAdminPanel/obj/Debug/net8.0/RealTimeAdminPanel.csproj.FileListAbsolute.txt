@@ -36,3 +36,6 @@
 /Users/mursal/Projects/RealTimeAdminPanel/RealTimeAdminPanel/obj/Debug/net8.0/RealTimeAdminPanel.genruntimeconfig.cache
 /Users/mursal/Projects/RealTimeAdminPanel/RealTimeAdminPanel/obj/Debug/net8.0/ref/RealTimeAdminPanel.dll
 /Users/mursal/Projects/RealTimeAdminPanel/RealTimeAdminPanel/bin/Debug/net8.0/RealTimeAdminPanel.staticwebassets.runtime.json
+/Users/mursal/Projects/RealTimeAdminPanel/RealTimeAdminPanel/bin/Debug/net8.0/Quartz.dll
+/Users/mursal/Projects/RealTimeAdminPanel/RealTimeAdminPanel/bin/Debug/net8.0/Quartz.Extensions.DependencyInjection.dll
+/Users/mursal/Projects/RealTimeAdminPanel/RealTimeAdminPanel/bin/Debug/net8.0/Quartz.Extensions.Hosting.dll

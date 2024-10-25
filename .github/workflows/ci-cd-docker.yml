@@ -42,8 +42,7 @@ jobs:
   deploy:
     runs-on: self-hosted
     needs: build
-    if: github.ref == 'refs/heads/main'
-
+    
     steps:
       - name: Check out code
         uses: actions/checkout@v3

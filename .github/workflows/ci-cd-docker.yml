@@ -29,7 +29,7 @@ jobs:
           
         - name: Run Tests in Test Folder
           run: |
-            dotnet test  # Run your C# application tests
+            docker exec myappcontainer dotnet test  # Run your C# application tests
 
         - name: Stop and Remove Docker Container
           run: |

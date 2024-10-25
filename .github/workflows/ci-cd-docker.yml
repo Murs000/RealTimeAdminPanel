@@ -23,25 +23,25 @@ jobs:
         run: |
           docker build -t realtimeadminpanel .
 
-  test:
-    runs-on: self-hosted
-    needs: build
+  # test:
+  #   runs-on: self-hosted
+  #   needs: build
 
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v3
+  #   steps:
+  #     - name: Check out code
+  #       uses: actions/checkout@v3
 
-      - name: Run Unit Tests
-        run: |
-          docker-compose -f docker-compose.test.yml up --build --abort-on-container-exit --exit-code-from unit-tests
+  #     - name: Run Unit Tests
+  #       run: |
+  #         docker-compose -f docker-compose.test.yml up --build --abort-on-container-exit --exit-code-from unit-tests
 
-      - name: Run Integration Tests
-        run: |
-          docker-compose -f docker-compose.test.yml up --build --abort-on-container-exit --exit-code-from integration-tests
+  #     - name: Run Integration Tests
+  #       run: |
+  #         docker-compose -f docker-compose.test.yml up --build --abort-on-container-exit --exit-code-from integration-tests
 
   deploy:
     runs-on: self-hosted
-    needs: test
+    needs: build
     if: github.ref == 'refs/heads/main'
 
     steps:

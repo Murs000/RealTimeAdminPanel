@@ -2,19 +2,15 @@ services:
   unit-tests:
     build:
       context: .
-      dockerfile: Dockerfile
-    command: dotnet test Tests/UnitTest/UnitTests.csproj --configuration Release --no-restore --verbosity normal
+      dockerfile: Dockerfile  # Ensure this points to your Dockerfile
     volumes:
-      - ./:/app
-    environment:
-      ASPNETCORE_ENVIRONMENT: Testing
+      - .:/src  # Ensure you mount the source code for tests
+    command: dotnet test /app/publish/UnitTests.dll --no-build --logger trx
 
   integration-tests:
     build:
       context: .
-      dockerfile: Dockerfile
-    command: dotnet test Tests/IntegrationTests/IntegrationTests.csproj --configuration Release --no-restore --verbosity normal
+      dockerfile: Dockerfile  # Ensure this points to your Dockerfile
     volumes:
-      - ./:/app
-    environment:
-      ASPNETCORE_ENVIRONMENT: Testing
+      - .:/src  # Ensure you mount the source code for tests
+    command: dotnet test /app/publish/IntegrationTests.dll --no-build --logger trx

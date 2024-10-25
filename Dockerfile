@@ -26,11 +26,17 @@ COPY . .
 RUN dotnet build "RealTimeAdminPanel/RealTimeAdminPanel.csproj" -c $configuration -o /app/build
 
 # Run unit tests
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS unit-test
 WORKDIR /src/Tests/UnitTest
+COPY --from=build /app/publish /app/publish 
+# Copy published app
 RUN dotnet test -c $configuration --results-directory /app/tests-results --logger trx
 
 # Run integration tests
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS integration-test
 WORKDIR /src/Tests/IntegrationTests
+COPY --from=build /app/publish /app/publish  
+# Copy published app
 RUN dotnet test -c $configuration --results-directory /app/tests-results --logger trx
 
 # Separate stage to publish the main app

@@ -8,7 +8,7 @@ USER app
 FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG configuration=Release
 WORKDIR /src
-COPY ["RealTimeAdminPanel/RealTimeAdminPanel.csproj", "RealTimeAdminPanel/"]
+COPY ["./RealTimeAdminPanel/RealTimeAdminPanel.csproj", "RealTimeAdminPanel/"]
 RUN dotnet restore "RealTimeAdminPanel/RealTimeAdminPanel.csproj"
 COPY . .
 WORKDIR "/src/RealTimeAdminPanel"

@@ -20,16 +20,25 @@ jobs:
           docker build -t myapp .  # Build the Docker image
 
   test:
-    runs-on: self-hosted
-    needs: build
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+      runs-on: self-hosted
+      needs: build
+      steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v2
       
-      - name: Run Tests in Test Folder
-        run: |
-          cd tests
-          dotnet run  # Run your C# application tests
+        - name: Run Docker
+          run: |
+            docker run -d --name your_container_name your_image_name  # Adjust this to your image name
+          
+        - name: Run Tests in Test Folder
+          run: |
+            cd tests
+            dotnet test  # Run your C# application tests
+
+        - name: Stop and Remove Docker Container
+          run: |
+            docker stop your_container_name
+            docker rm your_container_name
 
   deploy:
     runs-on: self-hosted

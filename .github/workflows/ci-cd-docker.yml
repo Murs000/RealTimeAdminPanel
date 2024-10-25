@@ -9,57 +9,36 @@ on:
       - main
 
 jobs:
-  setup:
-    runs-on: self-hosted
-
-    steps:
-      - name: Check Docker Version
-        run: docker --version
-
-      - name: Verify Docker Daemon is Running
-        run: docker info
-
   build:
     runs-on: self-hosted
-    needs: setup
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      
       - name: Build Docker Image
-        run: docker build -t myapp:latest .
-
-      - name: Verify Docker Image Build
-        run: docker images | grep myapp
+        run: |
+          docker build -t myapp:latest .
 
   test:
     runs-on: self-hosted
     needs: build
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Run Tests
-        run: docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace/Tests/ myapp:latest dotnet test
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      
+      - name: Run Tests in Test Folder
+        run: |
+          cd tests
+          dotnet test --no-build --verbosity normal
 
   deploy:
     runs-on: self-hosted
     needs: test
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Deploy with Docker Compose
-        run: docker-compose up -d --build
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      
+      - name: Deploy to Production
+        run: |
+          # Add your deployment steps here, such as pushing to a server or a cloud provider
+          docker run -d -p 80:80 myapp:latest

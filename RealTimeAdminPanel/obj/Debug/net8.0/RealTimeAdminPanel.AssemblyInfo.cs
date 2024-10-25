@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RealTimeAdminPanel")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ebd911c291cd75fbc36c9e8176afccd742020344")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bc44aaf64c8ce5ff1c3cf4902e4208016a65ab9e")]
 [assembly: System.Reflection.AssemblyProductAttribute("RealTimeAdminPanel")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RealTimeAdminPanel")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

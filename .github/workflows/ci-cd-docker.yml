@@ -1,9 +1,9 @@
-name: CI-CD with Docker for .NET application
+name: CI/CD Pipeline for ASP.NET Core with Docker Compose
 
 on:
   push:
     branches:
-      - main
+      - main  # Run pipeline on push to main branch
   pull_request:
     branches:
       - main
@@ -11,33 +11,42 @@ on:
 jobs:
   build:
     runs-on: self-hosted
+
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-      
-      - name: Build the Docker image
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build Docker Image
         run: |
-          docker build -t myapp ./RealTimeAdminPanel  # Build the Docker image
+          docker build -t realtimeadminpanel .
 
   test:
     runs-on: self-hosted
     needs: build
+
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-      
-      - name: Run Tests in Test Folder
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Run Unit Tests
         run: |
-          cd tests
-          dotnet run  # Run your C# application tests
+          docker run --rm realtimeadminpanel dotnet test --no-build --verbosity normal
 
   deploy:
     runs-on: self-hosted
     needs: test
+    if: github.ref == 'refs/heads/main'
+
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-      
-      - name: Build Docker Compose
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Compose
+        uses: docker/compose-action@v2
+
+      - name: Deploy with Docker Compose
         run: |
-          docker-compose up -d  # Build and start services defined in docker-compose.yml
+          docker-compose -f docker-compose.yml up -d

@@ -28,7 +28,7 @@ jobs:
       
         - name: Run Tests in Test Folder
           run: |
-            docker run --rm myapp-test dotnet test  # Run tests
+            docker run --rm myapp dotnet test  # Run tests
 
   deploy:
     runs-on: self-hosted

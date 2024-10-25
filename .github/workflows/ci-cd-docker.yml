@@ -15,9 +15,9 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
       
-      - name: Pull Docker Image
+      - name: Build the Docker image
         run: |
-          docker pull myapp:latest  # Pull existing Docker image from the repository
+          docker build -t myapp:latest -f ./Dockerfile .  # Build the Docker image
 
   test:
     runs-on: self-hosted

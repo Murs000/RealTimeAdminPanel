@@ -9,8 +9,19 @@ on:
       - main
 
 jobs:
+  setup:
+    runs-on: self-hosted
+
+    steps:
+      - name: Check Docker Version
+        run: docker --version
+
+      - name: Verify Docker Daemon is Running
+        run: docker info
+
   build:
-    runs-on: self-hosted  # Use self-hosted runner on your Mac
+    runs-on: self-hosted
+    needs: setup
 
     steps:
       - name: Checkout code
@@ -26,7 +37,7 @@ jobs:
         run: docker images | grep myapp
 
   test:
-    runs-on: self-hosted  # Use self-hosted runner on your Mac
+    runs-on: self-hosted
     needs: build
 
     steps:
@@ -40,7 +51,7 @@ jobs:
         run: docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace/Tests/ myapp:latest dotnet test
 
   deploy:
-    runs-on: self-hosted  # Use self-hosted runner on your Mac
+    runs-on: self-hosted
     needs: test
 
     steps:

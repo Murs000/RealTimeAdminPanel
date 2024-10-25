@@ -28,7 +28,7 @@ jobs:
       
         - name: Run Docker
           run: |
-            docker run -d --name your_container_name your_image_name  # Adjust this to your image name
+            docker run -d --name myappcontanier myapp  # Adjust this to your image name
           
         - name: Run Tests in Test Folder
           run: |
@@ -37,8 +37,8 @@ jobs:
 
         - name: Stop and Remove Docker Container
           run: |
-            docker stop your_container_name
-            docker rm your_container_name
+            docker stop myappcontanier
+            docker rm myappcontanier
 
   deploy:
     runs-on: self-hosted

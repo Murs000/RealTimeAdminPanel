@@ -49,4 +49,4 @@ jobs:
       
       - name: Build Docker Compose
         run: |
-          docker-compose.prod.yml up -d
+          docker-compose.prod up -d

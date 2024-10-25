@@ -15,7 +15,11 @@ WORKDIR /src
 COPY ["RealTimeAdminPanel/RealTimeAdminPanel.csproj", "RealTimeAdminPanel/"]
 COPY ["Tests/IntegrationTests/IntegrationTests.csproj", "Tests/IntegrationTests/"]
 COPY ["Tests/UnitTest/UnitTests.csproj", "Tests/UnitTest/"]
+
+# Run restore for each project explicitly to ensure all assets are available
 RUN dotnet restore "RealTimeAdminPanel/RealTimeAdminPanel.csproj"
+RUN dotnet restore "Tests/IntegrationTests/IntegrationTests.csproj"
+RUN dotnet restore "Tests/UnitTest/UnitTests.csproj"
 
 # Copy remaining source code and build the projects
 COPY . .
@@ -23,11 +27,11 @@ RUN dotnet build "RealTimeAdminPanel/RealTimeAdminPanel.csproj" -c $configuratio
 
 # Run unit tests
 WORKDIR /src/Tests/UnitTest
-RUN dotnet test -c $configuration --no-restore --results-directory /app/tests-results --logger trx
+RUN dotnet test -c $configuration --results-directory /app/tests-results --logger trx
 
 # Run integration tests
 WORKDIR /src/Tests/IntegrationTests
-RUN dotnet test -c $configuration --no-restore --results-directory /app/tests-results --logger trx
+RUN dotnet test -c $configuration --results-directory /app/tests-results --logger trx
 
 # Separate stage to publish the main app
 FROM build AS publish

@@ -16,7 +16,7 @@ COPY ["RealTimeAdminPanel/RealTimeAdminPanel.csproj", "RealTimeAdminPanel/"]
 COPY ["Tests/IntegrationTests/IntegrationTests.csproj", "Tests/IntegrationTests/"]
 COPY ["Tests/UnitTest/UnitTests.csproj", "Tests/UnitTest/"]
 
-# Run restore for each project explicitly to ensure all assets are available
+# Restore for each project explicitly
 RUN dotnet restore "RealTimeAdminPanel/RealTimeAdminPanel.csproj"
 RUN dotnet restore "Tests/IntegrationTests/IntegrationTests.csproj"
 RUN dotnet restore "Tests/UnitTest/UnitTests.csproj"
@@ -27,15 +27,14 @@ RUN dotnet build "RealTimeAdminPanel/RealTimeAdminPanel.csproj" -c $configuratio
 
 # Run unit tests
 WORKDIR /src/Tests/UnitTest
-RUN dotnet test -c $configuration --results-directory /app/tests-results --logger trx --no-restore --verbosity normal
+RUN dotnet test -c $configuration --results-directory /app/tests-results --logger trx
 
 # Run integration tests
 WORKDIR /src/Tests/IntegrationTests
-RUN dotnet test -c $configuration --results-directory /app/tests-results --logger trx --no-restore --verbosity normal
+RUN dotnet test -c $configuration --results-directory /app/tests-results --logger trx
 
 # Separate stage to publish the main app
 FROM build AS publish
-ARG configuration=Release
 WORKDIR /src/RealTimeAdminPanel
 RUN dotnet publish "RealTimeAdminPanel.csproj" -c $configuration -o /app/publish /p:UseAppHost=false
 
@@ -43,5 +42,4 @@ RUN dotnet publish "RealTimeAdminPanel.csproj" -c $configuration -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-
 ENTRYPOINT ["dotnet", "RealTimeAdminPanel.dll"]

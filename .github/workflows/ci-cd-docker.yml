@@ -33,11 +33,11 @@ jobs:
 
       - name: Run Unit Tests
         run: |
-          docker run --rm realtimeadminpanel dotnet test /app/tests/unit/UnitTests.dll --no-build --logger trx
+          docker-compose -f docker-compose.test.yml up --build --abort-on-container-exit --exit-code-from unit-tests
 
       - name: Run Integration Tests
         run: |
-          docker run --rm realtimeadminpanel dotnet test /app/tests/integration/IntegrationTests.dll --no-build --logger trx
+          docker-compose -f docker-compose.test.yml up --build --abort-on-container-exit --exit-code-from integration-tests
 
   deploy:
     runs-on: self-hosted
@@ -51,6 +51,10 @@ jobs:
       - name: Set up Docker Compose
         uses: docker/compose-action@v2
 
+      - name: Build Production Image
+        run: |
+          docker-compose -f docker-compose.prod.yml build
+
       - name: Deploy with Docker Compose
         run: |
-          docker-compose -f docker-compose.yml up -d
+          docker-compose -f docker-compose.prod.yml up -d

@@ -1,0 +1,20 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: dotnet test Tests/UnitTest/UnitTests.csproj --configuration Release --no-restore --verbosity normal
+    volumes:
+      - ./:/app
+    environment:
+      ASPNETCORE_ENVIRONMENT: Testing
+
+  integration-tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: dotnet test Tests/IntegrationTests/IntegrationTests.csproj --configuration Release --no-restore --verbosity normal
+    volumes:
+      - ./:/app
+    environment:
+      ASPNETCORE_ENVIRONMENT: Testing

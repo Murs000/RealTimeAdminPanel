@@ -21,22 +21,19 @@ RUN dotnet restore "RealTimeAdminPanel/RealTimeAdminPanel.csproj"
 RUN dotnet restore "Tests/IntegrationTests/IntegrationTests.csproj"
 RUN dotnet restore "Tests/UnitTest/UnitTests.csproj"
 
-# Copy all files and build the main app
+# Copy all files and build the main app and test projects
 COPY . .
 WORKDIR "/src/RealTimeAdminPanel"
 RUN dotnet build "RealTimeAdminPanel.csproj" -c $configuration -o /app/build
 
-# Separate stage to run tests
-FROM build AS test
-WORKDIR /src
+# Build and publish test DLLs
+WORKDIR "/src/Tests/UnitTest"
+RUN dotnet build "UnitTests.csproj" -c $configuration -o /app/tests/unit
 
-# Run unit tests
-RUN dotnet test "Tests/UnitTest/UnitTests.csproj" -c $configuration --no-build --verbosity normal
+WORKDIR "/src/Tests/IntegrationTests"
+RUN dotnet build "IntegrationTests.csproj" -c $configuration -o /app/tests/integration
 
-# Run integration tests
-RUN dotnet test "Tests/IntegrationTests/IntegrationTests.csproj" -c $configuration --no-build --verbosity normal
-
-# Publish stage
+# Separate stage to publish main app
 FROM build AS publish
 ARG configuration=Release
 RUN dotnet publish "RealTimeAdminPanel.csproj" -c $configuration -o /app/publish /p:UseAppHost=false

@@ -33,7 +33,11 @@ jobs:
 
       - name: Run Unit Tests
         run: |
-          docker run --rm realtimeadminpanel dotnet test --no-build --verbosity normal
+          docker run --rm realtimeadminpanel dotnet test /app/tests/unit/UnitTests.dll --no-build --verbosity normal
+
+      - name: Run Integration Tests
+        run: |
+          docker run --rm realtimeadminpanel dotnet test /app/tests/integration/IntegrationTests.dll --no-build --verbosity normal
 
   deploy:
     runs-on: self-hosted

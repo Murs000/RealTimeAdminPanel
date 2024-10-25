@@ -1,5 +1,5 @@
 services:
-  app:
+  unit-tests:
     build:
       context: .
       dockerfile: Dockerfile

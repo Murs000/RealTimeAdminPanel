@@ -23,18 +23,9 @@ jobs:
       runs-on: self-hosted
       needs: build
       steps:
-        - name: Run Docker
+        - name: Run Unit Tests with Local Docker Image
           run: |
-            docker run -d --name myappcontanier myapp  # Adjust this to your image name
-          
-        - name: Run Tests in Test Folder
-          run: |
-            docker exec myappcontainer dotnet test  # Run your C# application tests
-
-        - name: Stop and Remove Docker Container
-          run: |
-            docker stop myappcontanier
-            docker rm myappcontanier
+            docker run --rm myapp dotnet test
 
   deploy:
     runs-on: self-hosted

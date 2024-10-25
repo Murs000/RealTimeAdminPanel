@@ -27,11 +27,11 @@ RUN dotnet build "RealTimeAdminPanel/RealTimeAdminPanel.csproj" -c $configuratio
 
 # Run unit tests
 WORKDIR /src/Tests/UnitTest
-RUN dotnet test -c $configuration --results-directory /app/tests-results --logger trx
+RUN dotnet test -c $configuration --results-directory /app/tests-results --logger trx --no-restore --verbosity normal
 
 # Run integration tests
 WORKDIR /src/Tests/IntegrationTests
-RUN dotnet test -c $configuration --results-directory /app/tests-results --logger trx
+RUN dotnet test -c $configuration --results-directory /app/tests-results --logger trx --no-restore --verbosity normal
 
 # Separate stage to publish the main app
 FROM build AS publish

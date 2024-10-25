@@ -42,18 +42,11 @@ jobs:
   deploy:
     runs-on: self-hosted
     needs: build
-    
+
     steps:
-      - name: Check out code
-        uses: actions/checkout@v3
-
-      - name: Set up Docker Compose
-        uses: docker/compose-action@v2
-
-      - name: Build Production Image
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      
+      - name: Build Docker Compose
         run: |
-          docker-compose -f docker-compose.prod.yml build
-
-      - name: Deploy with Docker Compose
-        run: |
-          docker-compose -f docker-compose.prod.yml up -d
+          docker-compose.build up -d

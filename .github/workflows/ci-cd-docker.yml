@@ -1,4 +1,4 @@
-name: CI/CD with Docker for .NET Application
+name: CI-CD with Docker for .NET application
 
 on:
   push:
@@ -15,9 +15,9 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
       
-      - name: Build Docker Image
+      - name: Pull Docker Image
         run: |
-          docker build -t myapp:latest .
+          docker pull myapp:latest  # Pull existing Docker image from the repository
 
   test:
     runs-on: self-hosted
@@ -29,7 +29,7 @@ jobs:
       - name: Run Tests in Test Folder
         run: |
           cd tests
-          dotnet test --no-build --verbosity normal
+          dotnet run  # Run your C# application tests
 
   deploy:
     runs-on: self-hosted
@@ -38,7 +38,6 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
       
-      - name: Deploy to Production
+      - name: Build Docker Compose
         run: |
-          # Add your deployment steps here, such as pushing to a server or a cloud provider
-          docker run -d -p 80:80 myapp:latest
+          docker-compose up -d  # Build and start services defined in docker-compose.yml

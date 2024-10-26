@@ -1,20 +1,15 @@
-# Build image with SDK for tests
+# Use SDK image for building and testing
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ARG configuration=Release
 WORKDIR /src
 
-# Copy project files and restore as distinct layers for better caching
+# Copy project files and restore dependencies for both app and tests
+COPY ["RealTimeAdminPanel/RealTimeAdminPanel.csproj", "RealTimeAdminPanel/"]
 COPY ["Tests/IntegrationTests/IntegrationTests.csproj", "Tests/IntegrationTests/"]
 COPY ["Tests/UnitTest/UnitTests.csproj", "Tests/UnitTest/"]
+RUN dotnet restore "RealTimeAdminPanel/RealTimeAdminPanel.csproj"
+RUN dotnet restore "Tests/IntegrationTests/IntegrationTests.csproj"
 RUN dotnet restore "Tests/UnitTest/UnitTests.csproj"
 
-# Copy remaining source code for tests
+# Copy the full source code and build
 COPY . .
-
-# Run unit tests and output results to console
-WORKDIR /src/Tests/UnitTest
-RUN dotnet test -c $configuration --no-restore --logger "console;verbosity=detailed"
-
-# Run integration tests and output results to console
-WORKDIR /src/Tests/IntegrationTests
-RUN dotnet test -c $configuration --no-restore --logger "console;verbosity=detailed"
+RUN dotnet build "RealTimeAdminPanel/RealTimeAdminPanel.csproj" -c Release -o /app/build

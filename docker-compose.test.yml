@@ -1,17 +1,17 @@
 services:
   api:
+    container_name: api
     build:
       context: .
       dockerfile: Dockerfile.prod
     environment:
       - ASPNETCORE_ENVIRONMENT=Testing
-    ports:
-      - "5228:5228" # Map API to a port if needed for testing
 
   tests:
+    container_name: test
     build:
       context: .
       dockerfile: Dockerfile.test
     depends_on:
       - api
-    command: ["dotnet", "test", "--logger:trx"] # Run tests in this container
+    command: ["dotnet", "test", "--logger:console;verbosity=detailed"]

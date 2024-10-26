@@ -1,16 +1,7 @@
 services:
-  unit-tests:
+  tests:
     build:
       context: .
-      dockerfile: Dockerfile  # Ensure this points to your Dockerfile
-    volumes:
-      - .:/src  # Ensure you mount the source code for tests
-    command: dotnet test /app/publish/UnitTests.dll --no-build --logger trx
-
-  integration-tests:
-    build:
-      context: .
-      dockerfile: Dockerfile  # Ensure this points to your Dockerfile
-    volumes:
-      - .:/src  # Ensure you mount the source code for tests
-    command: dotnet test /app/publish/IntegrationTests.dll --no-build --logger trx
+      dockerfile: Tests/Dockerfile
+    depends_on:
+      - api

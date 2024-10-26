@@ -3,7 +3,7 @@ services:
     container_name: Web
     build:
       context: .
-      dockerfile: RealTimeAdminPanel/Dockerfile
+      dockerfile: Dockerfile.prod
     ports:
       - "5228:5228"
     environment:

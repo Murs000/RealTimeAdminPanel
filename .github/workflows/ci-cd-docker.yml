@@ -1,5 +1,7 @@
 name: CI/CD Pipeline
 
+# self-hosted (Docker in Docker)
+
 on:
   push:
     branches:

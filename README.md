@@ -60,7 +60,7 @@ The project uses the **Model-View-Controller (MVC)** architecture:
 ## Technologies Used
 - **C#**
 - **ASP.NET WebApi** (with MVC structure)
-- **SignalR**
+- **SignalR** (for real time data)
 - **Bogus** (for mocking data)
 - **Swagger** (for API testing)
 - **Postman** (for WebSocket testing)

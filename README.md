@@ -24,7 +24,7 @@ The project uses the **Model-View-Controller (MVC)** architecture:
 ### Services
 - **Statistics Service**: Manages statistics without a database. It uses a private field (`_currentStatistics`) to store current statistics, which persist across sessions due to the **singleton** pattern.
   - **generateRandomStatistics()**: Generates fake statistics using **Bogus**.
-  - **updateStatistics()**: Updates the statistics when data is received from the user and sends changes with **SignalR** all connected users.
+  - **updateStatistics()**: Updates the statistics when data is received from the user and sends changes with **SignalR** to all connected users.
   
 ### SignalR Hub
 - **StatisticsHub**: Handles real-time communication with clients.
@@ -60,7 +60,24 @@ The project uses the **Model-View-Controller (MVC)** architecture:
 ## Technologies Used
 - **C#**
 - **ASP.NET WebApi** (with MVC structure)
-- **SignalR**
+- **SignalR** (for real-time data)
 - **Bogus** (for mocking data)
 - **Swagger** (for API testing)
 - **Postman** (for WebSocket testing)
+
+## CI/CD Pipeline
+
+This project uses a CI/CD pipeline configured with **GitHub Actions** to automate the build, test, and deployment processes. Here’s a brief overview of the key components:
+
+- **Docker Compose Files**:
+  - `docker-compose-prod`: Used for production deployment.
+  - `docker-compose-test`: Used for testing environments.
+  - `docker-file-prod`: Dockerfile for production builds.
+  - `docker-file-test`: Dockerfile for test builds.
+
+- **CI/CD Steps**:
+  1. **Build**: The service is built using `docker-compose-prod`, `docker-compose-test`, and `docker-compose-api`. It runs on your local machine, but you can adjust the configuration for your own setup.
+  2. **Test**: In the test stage, `docker-compose-test` is utilized to run tests. This ensures that all functionality is validated before deployment.
+  3. **Deploy**: After successful tests, the service is deployed using `docker-compose-app`, making it available for use.
+
+With this setup, you can ensure that your application is built, tested, and deployed efficiently, enhancing the overall development workflow.
